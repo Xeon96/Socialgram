@@ -37,7 +37,7 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
   try{
     res.cookie("jwt","",{maxAge : 0});
-    res.status(200).json({error : "logged out successfully"})
+    res.status(200).json({msg : "logged out successfully"})
 
 
   }
@@ -50,7 +50,8 @@ export const logout = async (req, res) => {
 
 export const signup = async (req, res) => {
   try {
-    const { fullname, username, password, confirmPassword, gender } = req.body;
+    debugger;
+    const { fullName, username, password, confirmPassword, gender } = req.body;
 
     //Check if password and confirm passwords match
     if (password !== confirmPassword) {
@@ -75,7 +76,7 @@ export const signup = async (req, res) => {
 
     //Create new user and store details in database
     const newUser = new User({
-      fullname: fullname,
+      fullname: fullName,
       username: username,
       password: hashedPassword,
       gender: gender,
