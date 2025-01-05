@@ -19,7 +19,7 @@ const useGetMessages = () => {
             }
 
             setMessages(data);
-            console.log("m",data)
+            //console.log("m",data)
             } catch (error) {
                 toast.error(error.message)
             }

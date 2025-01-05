@@ -10,9 +10,9 @@ import connectToMongoDB from "./db/connectToMongoDb.js";
 import { app,server } from "./socket/socket.js";
 
 
-
+ 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173","http://localhost:4000"],
     credentials: true 
 }));
 
@@ -32,7 +32,7 @@ app.use("/api/users",userRoutes);
 //run express erver and listen to the PORT
 server.listen(PORT,() => {
     connectToMongoDB();
-    console.log(`Server is running on port ${PORT}`)
+    console.log(`Server is running on port@!!! ${PORT}`)
 });
 
 

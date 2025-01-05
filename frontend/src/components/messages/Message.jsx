@@ -11,9 +11,10 @@ const Message = ({message}) => {
   const timeClass =  MsgFromMe?"chat-start" : "chat-end"
   const profilePic = MsgFromMe?authUser.profilePic:selectedConversation.profilePic;
   const bubbleBgColor = MsgFromMe? "bg-blue-500":"bg-gray-700"
-
-
-
+  const utcTimestamp = message.createdAt?message.createdAt:'2024-12-21T17:04:41.741+00:00';
+  const date = new Date(utcTimestamp);
+  const istTime = date.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata',hour: '2-digit',minute: '2-digit'});
+  //console.log(message.createdAt,":",message)
 
  
   //--------------------------------------------------------------------------------------------------------------------
@@ -30,9 +31,9 @@ const Message = ({message}) => {
       </div>
       <div className={`chat-bubble text-sm ${timeClass} ${bubbleBgColor} `}>
         {message.message}
-        <div className="chat-footer opacity-50">10:10</div>
+        <div className="chat-footer opacity-50">{istTime}</div>
       </div>
-      <div className="chat-footer opacity-50">Delivered</div>
+      {/* <div className="chat-footer opacity-50">Delivered</div> */}
     </div>
   );
 };

@@ -17,12 +17,12 @@ const Messages = () => {
     if (messagesEndRef.current) {
       if (isInitialLoad) {
         // Instant scroll for the first load
-        console.log("fast:",isInitialLoad);
+        //console.log("fast:",isInitialLoad);
         messagesEndRef.current.scrollIntoView({ behavior: "auto" });
         setIsInitialLoad(false); // Set initial load to false after the first scroll
       } else {
         // Smooth scroll for subsequent updates
-        console.log("smooth:",isInitialLoad)
+        //console.log("smooth:",isInitialLoad)
         messagesEndRef.current.scrollIntoView({ behavior: "auto" });
       }
     }
