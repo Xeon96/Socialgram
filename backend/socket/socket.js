@@ -4,15 +4,19 @@ import express from "express";
 
 
 const app = express();
-
 const server = http.createServer(app);
+// const io = new Server(server,{
+//     cors:{
+//         origin: 'http://localhost:5173',
+//         method: ['GET','POST']
+//     }
+// });
 const io = new Server(server,{
     cors:{
-        origin: 'http://localhost:5173',
+        origin: ['http://localhost:5173','http://192.168.0.107:5173','http://192.168.0.104:5173'],
         method: ['GET','POST']
     }
 });
-
 const userSocketMap = {}; //map to store the userid and socketId of all the connected users. {userId: socketId}
 
 export const getReceiverSocketId = (receiverId) =>{

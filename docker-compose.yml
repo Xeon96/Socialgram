@@ -1,0 +1,55 @@
+name: socialgram
+
+services:
+  mongo:
+    image: mongo:7.0.12
+    ports:
+      - 27017:27017 # This no required as we have created a docker network and service can directly communicate inside the docker network, but we still keep it so that we can
+                    # so that we can connect to the dta base using mongo compass. In prod we will remove this
+    volumes:
+      - mongo_data:/data/db #we create a named volume and map it to the container volume. This is done so the daata persists when we restart the container.
+                            #We have to define the named volume which is done at the bottom of the code in 'volumes'
+    networks: 
+      - socialgram #we have created this network at the end of the code
+  api:
+    build:
+      context: ./backend #location of dockerfile respective to the docker-compose.yml file 
+      dockerfile: Dockerfile #dockerfile name
+    restart: unless-stopped
+    env_file: ./backend/.env
+    volumes:
+     - ./backend:/app #Map ./backend directory with /app directory on the container. So that when we make any changes to the files on local machine, the docker image is built automatically and container is started
+     - /app/node_modules #ignore this directory, i.e. this directory is not mapped to the /app direcotry on container
+    networks: 
+      - socialgram #we have created this network at the end of the code 
+    command: npm run server
+    ports:
+      - 8000:8000
+    environment:
+      WATCHPACK_POLLING: "true"
+    depends_on:
+      - mongo
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - socialgram
+    command:  npm run dev -- --host
+    ports:
+      - 5173:5173
+    depends_on:
+     - api  
+      
+volumes:
+  mongo_data: #this creates a new volume with name mongo_data and this can we used in any of the above containers.
+
+networks:
+   socialgram:
+    driver: bridge

@@ -12,9 +12,11 @@ import { app,server } from "./socket/socket.js";
 
  
 app.use(cors({
-    origin: ["http://localhost:5173","http://localhost:4000"],
+    origin: ["http://localhost:5173","http://localhost:4000",'http://192.168.0.107:5173','http://192.168.0.104:5173'],
     credentials: true 
 }));
+
+//app.use(cors());
 
 //Library to get values from .env files
 dotenv.config();
