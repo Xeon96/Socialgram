@@ -5,7 +5,7 @@ import { useAuthContext } from "../context/AuthContext";
 const useSignup = () => {
   const [loading, setLoading] = useState(false);
   const { setAuthUser} = useAuthContext();
-
+  const API_URL = import.meta.env.VITE_API_URL;
 //signup function, we return the pointer to the signup function in the return statement of useSignup().
   const signup = async ({
     fullName,
@@ -26,7 +26,8 @@ const useSignup = () => {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/auth/signup", {
+      console.log("Backend EndPoint: ", API_URL);
+      const res = await fetch(`${API_URL}/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
