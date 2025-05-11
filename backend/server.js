@@ -9,17 +9,19 @@ import cors from "cors";
 import connectToMongoDB from "./db/connectToMongoDb.js";
 import { app,server } from "./socket/socket.js";
 
+//Library to get values from .env files
+dotenv.config();
 
- 
+const FrontEnd_IP = process.env.EC2_IP
+const Environment = process.env.NODE_ENV
 app.use(cors({
-    origin: ["http://localhost:5173","http://localhost:4000",'http://192.168.0.107:5173','http://192.168.0.104:5173'],
+    origin: [FrontEnd_IP,'http://172.29.208.1:5173','http://192.168.0.104:5173'],
     credentials: true 
 }));
 
 //app.use(cors());
 
-//Library to get values from .env files
-dotenv.config();
+
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json()); //To parse the incoming requests with JSON payloads(from req.body)
@@ -32,9 +34,9 @@ app.use("/api/users",userRoutes);
 
 
 //run express erver and listen to the PORT
-server.listen(PORT,() => {
+server.listen(PORT,'0.0.0.0',() => {
     connectToMongoDB();
-    console.log(`Server is running on port@!!! ${PORT}`)
+    console.log(`Server is running on port@!!! ${PORT},Environmennt: ${Environment}`);
 });
 
 

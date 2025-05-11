@@ -5,12 +5,12 @@ import axios from 'axios';
 const useGetConversation = () => {
     const [loading,setLoading] = useState(false);
     const [conversations,setConversations] = useState([]);
-
+    const API_URL = import.meta.env.VITE_API_URL;
     useEffect(() => {
         const getConversations = async () => {
             setLoading(true);
             try {
-                const res = await fetch('http://localhost:8000/api/users/',{credentials: 'include',method: "GET"},)
+                const res = await fetch(`${API_URL}/api/users/`,{credentials: 'include',method: "GET"},)
                 const data = await res.json();
                 if(data.error){
                     throw new Error(data.error);

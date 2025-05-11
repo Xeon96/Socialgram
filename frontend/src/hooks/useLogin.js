@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const { setAuthUser } = useAuthContext();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const login = async ({ username, password }) => {
     setLoading(true);
@@ -16,7 +17,8 @@ const useLogin = () => {
 
       if (!inputsValid) return;
 
-      const res = await fetch("http://localhost:8000/api/auth/login", {
+      console.log("Backend EndPoint: ", API_URL);
+      const res = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         credentials: 'include',
         headers: { "Content-Type": "application/json" },

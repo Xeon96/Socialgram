@@ -5,11 +5,12 @@ import toast from "react-hot-toast";
 const useLogout = () => {
   const [loading, setLoading] = useState(false);
   const { setAuthUser } = useAuthContext();
+  const API_URL = import.meta.env.VITE_API_URL;
   const logout = async () => {
     console.log("logout click");
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/auth/logout", {
+      const res = await fetch(`${API_URL}/api/auth/logout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });

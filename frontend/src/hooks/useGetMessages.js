@@ -6,7 +6,7 @@ import { useAuthContext } from '../context/AuthContext';
 const useGetMessages = () => {
     const {selectedConversation,messages,setMessages} = useConversation();
     const[loading,setLoading] = useState(false);
-
+    const API_URL = import.meta.env.VITE_API_URL;
     useEffect(()=>{
         
         const getMessages = async () => {
