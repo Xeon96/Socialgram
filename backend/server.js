@@ -5,7 +5,7 @@ import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
+import { healthcheck } from "./controllers/healthcheck.controller.js";
 import connectToMongoDB from "./db/connectToMongoDb.js";
 import { app,server } from "./socket/socket.js";
 
@@ -30,7 +30,7 @@ app.use(cookieParser());//To get the cookies of the request
 app.use("/api/auth",authRoutes); //if the get request starts with api/auth, then the request is redirected to the authRoutes. 
 app.use("/api/messages",messageRoutes); //if the get request starts with api/messages, then the request is redirected to the messageRoutes. 
 app.use("/api/users",userRoutes);
-
+app.get('/healthcheck', healthcheck);
 
 
 //run express erver and listen to the PORT
